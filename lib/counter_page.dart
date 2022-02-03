@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_mobx_example/store/counter/counter.dart';
 
 class CounterPage extends StatelessWidget {
-  const CounterPage({Key? key}) : super(key: key);
+  CounterPage({Key? key}) : super(key: key);
+
+  final Counter counter = Counter();
 
   @override
   Widget build(BuildContext context) {
@@ -15,15 +18,17 @@ class CounterPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text('counter'),
-            Observer(builder: (_) => const Text('0')),
+            Observer(builder: (_) => Text('${counter.count}')),
             // ++
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              ElevatedButton(onPressed: () {}, child: const Text('Add'))
+              ElevatedButton(
+                  onPressed: counter.increment, child: const Text('Add'))
             ]),
 
             // --
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              ElevatedButton(onPressed: () {}, child: const Text('Minus'))
+              ElevatedButton(
+                  onPressed: counter.decrement, child: const Text('Minus'))
             ])
           ],
         ),
